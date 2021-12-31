@@ -1,0 +1,27 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "ts-node-dev server",
+    "start": "ts-node server"
+  },
+  "dependencies": {
+    "fastify": "3.25.3",
+    "fastify-healthcheck": "^3.1.0",
+    "graphql": "16.2.0",
+    "graphql-helix": "^1.11.0"
+  },
+  "devDependencies": {
+    "config": "workspace:*",
+    "eslint": "7.32.0",
+    "ts-node": "10.4.0",
+    "ts-node-dev": "1.1.8",
+    "tsconfig": "workspace:*",
+    "typescript": "^4.5.3"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

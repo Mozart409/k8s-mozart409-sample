@@ -1,0 +1,5 @@
+{
+  "extends": "tsconfig/fastify.json",
+  "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
+}
