@@ -1,18 +1,10 @@
 {
   "compilerOptions": {
     "outDir": "dist",
-    "target": "es2018",
-    "lib": ["es2018", "dom"],
-    "module": "commonjs",
+    "target": "esnext",
     "moduleResolution": "node",
-    "declaration": true,
-    "checkJs": false,
-    "strict": true,
-    "noImplicitReturns": true,
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
-    "skipLibCheck": true,
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true
+    "module": "commonjs",
+    "sourceMap": true,
+    "lib": ["esnext"]
   }
 }

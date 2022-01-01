@@ -1,63 +1,38 @@
+import { schema } from './src/schema'
+import { createServer } from 'graphql-yoga'
 import fastify from 'fastify'
-import {
-  getGraphQLParameters,
-  processRequest,
-  renderGraphiQL,
-  sendResult,
-  shouldRenderGraphiQL,
-} from 'graphql-helix'
-import { schema } from './schema'
 import healthCheck from 'fastify-healthcheck'
-const app = fastify()
+
+// This is the fastify instance you have created
+const app = fastify({ logger: true })
 
 app.register(healthCheck, {
-  // healthcheckUrl: '/custom-health',
-  // healthcheckUrlDisable: true,
-  // healthcheckUrlAlwaysFail: true,
-  // exposeUptime: true,
-  // underPressureOptions: { } // no under-pressure specific options set here
-  exposeUptime: true, // enable, as a sample
+  exposeUptime: true,
+})
+
+const graphQLServer = createServer({
+  schema,
+  // Integrate Fastify logger
+  logger: app.log,
 })
 
 app.route({
-  method: ['GET', 'POST'],
   url: '/graphql',
-  async handler(req, res) {
-    const request = {
-      body: req.body,
-      headers: req.headers,
-      method: req.method,
-      query: req.query,
-    }
+  method: ['GET', 'POST', 'OPTIONS'],
+  handler: async (req, reply) => {
+    const response = await graphQLServer.handleIncomingMessage(req)
+    response.headers.forEach((value, key) => {
+      reply.header(key, value)
+    })
 
-    if (shouldRenderGraphiQL(request)) {
-      res.type('text/html')
-      res.send(renderGraphiQL({}))
-    } else {
-      const request = {
-        body: req.body,
-        headers: req.headers,
-        method: req.method,
-        query: req.query,
-      }
-      const { operationName, query, variables } = getGraphQLParameters(request)
-      const result = await processRequest({
-        operationName,
-        query,
-        variables,
-        request,
-        schema,
-      })
-
-      sendResult(result, res.raw)
-    }
+    reply.status(response.status)
+    reply.send(response.body)
   },
 })
 
-const port = process.env.PORT || 4000
+app.listen(4000)
 
-app.listen(port, () => {
+app.ready(() => {
   const routes = app.printRoutes()
   console.log(`Available Routes:\n${routes}`)
-  console.log(`GraphQL server is running on port localhost:${port}`)
 })
