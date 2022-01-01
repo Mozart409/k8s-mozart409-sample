@@ -14,9 +14,26 @@ export type Scalars = {
   Float: number;
 };
 
+export type Cats = {
+  __typename?: 'Cats';
+  votes: Scalars['Int'];
+};
+
+export type Dogs = {
+  __typename?: 'Dogs';
+  votes: Scalars['Int'];
+};
+
+export type Mutation = {
+  __typename?: 'Mutation';
+  upvoteCats: Cats;
+  upvoteDogs: Dogs;
+};
+
 export type Query = {
   __typename?: 'Query';
-  greeting?: Maybe<Scalars['String']>;
+  cats: Scalars['Int'];
+  dogs: Scalars['Int'];
 };
 
 export type Subscription = {
@@ -99,7 +116,10 @@ export type DirectiveResolverFn<TResult = {}, TParent = {}, TContext = {}, TArgs
 /** Mapping between all available schema types and the resolvers types */
 export type ResolversTypes = {
   Boolean: ResolverTypeWrapper<Scalars['Boolean']>;
+  Cats: ResolverTypeWrapper<Cats>;
+  Dogs: ResolverTypeWrapper<Dogs>;
   Int: ResolverTypeWrapper<Scalars['Int']>;
+  Mutation: ResolverTypeWrapper<{}>;
   Query: ResolverTypeWrapper<{}>;
   String: ResolverTypeWrapper<Scalars['String']>;
   Subscription: ResolverTypeWrapper<{}>;
@@ -108,14 +128,33 @@ export type ResolversTypes = {
 /** Mapping between all available schema types and the resolvers parents */
 export type ResolversParentTypes = {
   Boolean: Scalars['Boolean'];
+  Cats: Cats;
+  Dogs: Dogs;
   Int: Scalars['Int'];
+  Mutation: {};
   Query: {};
   String: Scalars['String'];
   Subscription: {};
 };
 
+export type CatsResolvers<ContextType = any, ParentType extends ResolversParentTypes['Cats'] = ResolversParentTypes['Cats']> = {
+  votes?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type DogsResolvers<ContextType = any, ParentType extends ResolversParentTypes['Dogs'] = ResolversParentTypes['Dogs']> = {
+  votes?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
+};
+
+export type MutationResolvers<ContextType = any, ParentType extends ResolversParentTypes['Mutation'] = ResolversParentTypes['Mutation']> = {
+  upvoteCats?: Resolver<ResolversTypes['Cats'], ParentType, ContextType>;
+  upvoteDogs?: Resolver<ResolversTypes['Dogs'], ParentType, ContextType>;
+};
+
 export type QueryResolvers<ContextType = any, ParentType extends ResolversParentTypes['Query'] = ResolversParentTypes['Query']> = {
-  greeting?: Resolver<Maybe<ResolversTypes['String']>, ParentType, ContextType>;
+  cats?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
+  dogs?: Resolver<ResolversTypes['Int'], ParentType, ContextType>;
 };
 
 export type SubscriptionResolvers<ContextType = any, ParentType extends ResolversParentTypes['Subscription'] = ResolversParentTypes['Subscription']> = {
@@ -123,6 +162,9 @@ export type SubscriptionResolvers<ContextType = any, ParentType extends Resolver
 };
 
 export type Resolvers<ContextType = any> = {
+  Cats?: CatsResolvers<ContextType>;
+  Dogs?: DogsResolvers<ContextType>;
+  Mutation?: MutationResolvers<ContextType>;
   Query?: QueryResolvers<ContextType>;
   Subscription?: SubscriptionResolvers<ContextType>;
 };
