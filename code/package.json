@@ -5,7 +5,7 @@
   "scripts": {
     "build": "turbo run build",
     "predev": "docker-compose up -d",
-    "dev": "turbo run dev --parallel",
+    "dev": "pnpm run predev && turbo run dev --parallel",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
