@@ -10,16 +10,20 @@
   },
   "dependencies": {
     "next": "12.0.3",
+    "phin": "workspace:*",
     "react": "17.0.2",
     "react-dom": "17.0.2",
+    "redis": "workspace:*",
+    "superagent": "^7.0.1",
     "ui": "workspace:*"
   },
   "devDependencies": {
+    "@types/react": "17.0.37",
+    "@types/superagent": "^4.1.14",
     "config": "workspace:*",
     "eslint": "7.32.0",
     "next-transpile-modules": "9.0.0",
     "tsconfig": "workspace:*",
-    "@types/react": "17.0.37",
     "typescript": "^4.5.3"
   }
 }
